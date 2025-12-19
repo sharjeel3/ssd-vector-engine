@@ -1,0 +1,107 @@
+# GitHub Spec-Kit Configuration
+# This file configures spec-driven development for the SSD Vector Engine project
+
+version: 1
+
+# Directory structure for specs
+specs:
+  directory: specs
+  
+# Spec templates
+templates:
+  feature:
+    path: specs/features
+    template: |
+      # Feature: {{title}}
+      
+      ## Status
+      - [ ] Draft
+      - [ ] Review
+      - [ ] Approved
+      - [ ] Implemented
+      
+      ## Overview
+      Brief description of the feature
+      
+      ## Requirements
+      - Functional requirements
+      - Non-functional requirements
+      
+      ## API/Interface
+      ```
+      Code examples or API signatures
+      ```
+      
+      ## Dependencies
+      - List of dependencies
+      
+      ## Testing Strategy
+      - How this will be tested
+      
+      ## Implementation Notes
+      - Technical considerations
+      
+  component:
+    path: specs/components
+    template: |
+      # Component: {{title}}
+      
+      ## Status
+      - [ ] Draft
+      - [ ] Review
+      - [ ] Approved
+      - [ ] Implemented
+      
+      ## Purpose
+      What this component does
+      
+      ## Interface
+      ```
+      Public API or interface definition
+      ```
+      
+      ## Dependencies
+      - Internal dependencies
+      - External dependencies
+      
+      ## Performance Requirements
+      - Latency targets
+      - Throughput targets
+      - Resource constraints
+      
+      ## Testing
+      - Unit testing approach
+      - Integration testing approach
+      
+  architecture:
+    path: specs/architecture
+    template: |
+      # Architecture Decision: {{title}}
+      
+      ## Status
+      - [ ] Proposed
+      - [ ] Accepted
+      - [ ] Rejected
+      - [ ] Deprecated
+      
+      ## Context
+      What is the issue we're addressing?
+      
+      ## Decision
+      What is the change we're proposing?
+      
+      ## Consequences
+      What becomes easier or more difficult?
+      
+      ## Alternatives Considered
+      What other options were evaluated?
+
+# Validation rules
+validation:
+  require_status: true
+  require_reviewers: 1
+  
+# Automation
+automation:
+  create_tracking_issue: true
+  link_to_implementation: true

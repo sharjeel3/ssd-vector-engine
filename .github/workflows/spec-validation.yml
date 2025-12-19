@@ -1,0 +1,64 @@
+name: Spec Validation
+
+on:
+  pull_request:
+    paths:
+      - 'specs/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'specs/**'
+
+jobs:
+  validate-specs:
+    runs-on: ubuntu-latest
+    name: Validate Specification Documents
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Check spec structure
+        run: |
+          echo "Validating spec directory structure..."
+          
+          # Check that specs directory exists
+          if [ ! -d "specs" ]; then
+            echo "Error: specs/ directory not found"
+            exit 1
+          fi
+          
+          # Check for required subdirectories
+          for dir in features components architecture; do
+            if [ ! -d "specs/$dir" ]; then
+              echo "Warning: specs/$dir directory not found"
+            fi
+          done
+          
+      - name: Validate spec format
+        run: |
+          echo "Checking spec files for required sections..."
+          
+          # Find all markdown files in specs/
+          find specs -name "*.md" -not -name "README.md" | while read -r file; do
+            echo "Checking $file"
+            
+            # Check for Status section
+            if ! grep -q "## Status" "$file"; then
+              echo "Warning: $file missing '## Status' section"
+            fi
+            
+            # Check that at least one status checkbox exists
+            if ! grep -q "- \[" "$file"; then
+              echo "Warning: $file missing status checkboxes"
+            fi
+            
+            echo "✓ $file validated"
+          done
+          
+      - name: Report validation results
+        run: |
+          spec_count=$(find specs -name "*.md" -not -name "README.md" | wc -l)
+          echo "✓ Validated $spec_count specification documents"
+          echo "Spec validation complete!"
